@@ -1,0 +1,17 @@
+FROM nvidia/cuda:12.8.0-cudnn-runtime-ubuntu22.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y python3 python3-pip git libsndfile1
+
+# Upgrade pip and install required Python packages
+RUN pip3 install --upgrade pip && \
+    pip3 install torch torchaudio speechbrain flask tqdm
+
+# Copy the Flask server script into the container
+COPY lid_server.py /app/lid_server.py
+WORKDIR /app
+
+# Expose port 3002 for the API
+EXPOSE 3002
+
+CMD ["python3", "lid_server.py"]

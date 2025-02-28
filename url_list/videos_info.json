@@ -1,0 +1,41 @@
+{
+    "videos": [
+        {
+            "title": "جراح القلب | الدحيح",
+            "url": "https://www.youtube.com/watch?v=9ZTCUyhoknU",
+            "duration": 3519
+        },
+        {
+            "title": "حلقة طويلة عن لاعب قصير | الدحيح",
+            "url": "https://www.youtube.com/watch?v=FiVuG3hu53c",
+            "duration": 2291
+        },
+        {
+            "title": "ليه بنتخن في رمضان؟ | الدحيح",
+            "url": "https://www.youtube.com/watch?v=kHYe-nAQT_M",
+            "duration": 1443
+        },
+        {
+            "title": "مكان انطلاق الحرب العالمية التالتة | الدحيح",
+            "url": "https://www.youtube.com/watch?v=oXs2b6V89LI",
+            "duration": 2550
+        },
+        {
+            "title": "ADHD | الدحيح",
+            "url": "https://www.youtube.com/watch?v=8G9KkBdgYY8",
+            "duration": 2234
+        },
+        {
+            "title": "رحلة ملهمة غير مشروعة | الدحيح",
+            "url": "https://www.youtube.com/watch?v=13nQ7445lcQ",
+            "duration": 2136
+        },
+        {
+            "title": "الجيم | الدحيح",
+            "url": "https://www.youtube.com/watch?v=ntZq0wIo2ds",
+            "duration": 1592
+        }
+    ],
+    "total_duration": 15765,
+    "videos_count": 7
+}
