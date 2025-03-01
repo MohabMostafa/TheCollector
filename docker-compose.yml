@@ -18,3 +18,14 @@ services:
       - DAGIT_HOST=0.0.0.0
       - DAGIT_PORT=3001
     command: ["dagster", "dev", "-w", "/app/workspace.yaml"]
+
+  dpipe-mkdocs:
+    image: squidfunk/mkdocs-material
+    container_name: dpipe-mkdocs
+    restart: always
+    ports:
+      - "0.0.0.0:9000:8000"
+    volumes:
+      - ./:/docs
+    stdin_open: true
+    tty: true
