@@ -24,7 +24,7 @@ services:
     container_name: dpipe-mkdocs
     restart: always
     ports:
-      - "0.0.0.0:9000:8000"
+      - "0.0.0.0:5001:8000"
     volumes:
       - ./:/docs
     stdin_open: true
