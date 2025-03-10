@@ -1,0 +1,41 @@
+# services:
+#   lang_detector:
+#     build: .
+#     container_name: lid-docker-lang_detector
+#     ports:
+#       - "3002:3002"
+#     volumes:
+#       - ../../audio-and-captions:/app/audio-and-captions
+#       - ../../lid-model:/app/lid-model
+#     deploy:
+#       resources:
+#         reservations:
+#           devices:
+#             - driver: nvidia
+#               count: all
+#               capabilities: [gpu]
+#     restart: unless-stopped
+
+services:
+  lang_detector:
+    build: .
+    container_name: lid-docker-lang_detector
+    ports:
+      - "3002:3002"
+    volumes:
+      - ../../audio-and-captions:/app/audio-and-captions
+      - ../../lid-model:/app/lid-model
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    networks:
+      - common_net
+
+networks:
+  common_net:
+    external: true

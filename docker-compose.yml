@@ -1,3 +1,25 @@
+# services:
+#   dagster:
+#     image: dpipe
+#     container_name: dpipe
+#     build: .
+#     ports:
+#       - "3001:3001"
+#       - "4001:4000"
+#     volumes:
+#       - ./audio-and-captions:/app/audio-and-captions
+#       - ./keywords:/app/keywords
+#       - ./url_list:/app/url_list
+#       - ./proxies.json:/app/proxies.json
+#       - ./workspace.yaml:/app/workspace.yaml
+#       - ./config.yaml:/app/config.yaml
+#     environment:
+#       - DAGSTER_HOME=/app/dagster_home
+#       - DAGIT_HOST=0.0.0.0
+#       - DAGIT_PORT=3001
+#     command: ["dagster", "dev", "-w", "/app/workspace.yaml"]
+#     restart: unless-stopped
+
 services:
   dagster:
     image: dpipe
@@ -13,8 +35,21 @@ services:
       - ./proxies.json:/app/proxies.json
       - ./workspace.yaml:/app/workspace.yaml
       - ./config.yaml:/app/config.yaml
+      - ./mixedlanguage-ECA:/app/mixedlanguage-ECA
+      - ./mixedlanguage-MSA:/app/mixedlanguage-MSA
+      - ./arabic-only-ECA:/app/arabic-only-ECA
+      - ./arabic-only-MSA:/app/arabic-only-MSA
+      - ./output-folder-ECA:/app/output-folder-ECA
+      - ./output-folder-MSA:/app/output-folder-MSA
     environment:
       - DAGSTER_HOME=/app/dagster_home
       - DAGIT_HOST=0.0.0.0
       - DAGIT_PORT=3001
     command: ["dagster", "dev", "-w", "/app/workspace.yaml"]
+    restart: unless-stopped
+    networks:
+      - common_net
+
+networks:
+  common_net:
+    external: true

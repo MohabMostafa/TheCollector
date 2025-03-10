@@ -7,6 +7,9 @@ remove songs from url list using _music_detector.py
 step-3 [the-collector environment]:
 download audio from collected urls using _get_urls_and_download.py
 
+Create external network
+docker network create common_net
+
 step-4 [lang-id environment]
 filter audio files by targeting only target language using _lang_id.py
 

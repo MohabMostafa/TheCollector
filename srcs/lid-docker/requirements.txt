@@ -1,0 +1,6 @@
+flask
+gunicorn
+speechbrain
+natsort
+tqdm
+requests
