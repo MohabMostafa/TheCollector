@@ -4,3 +4,5 @@ dagit
 yt_dlp
 tqdm
 pyyaml
+pydub
+natsort

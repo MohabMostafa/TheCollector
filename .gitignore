@@ -1,5 +1,12 @@
 # Custom
 audio-and-captions/
+lid-model/
+arabic-only-ECA
+arabic-only-MSA
+mixedlanguage-ECA
+mixedlanguage-MSA
+output-folder-ECA
+output-folder-MSA
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

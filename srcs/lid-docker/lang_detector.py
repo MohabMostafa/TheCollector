@@ -1,4 +1,4 @@
-from speechbrain.pretrained import EncoderClassifier
+from speechbrain.inference import EncoderClassifier
 from natsort import natsorted, ns
 import shutil
 import glob
@@ -27,7 +27,7 @@ def detect_lang(path: str, classifier: EncoderClassifier) -> str:
     window_size_samples = int(16_000 * WINDOW_SIZE)
     stride_size_samples = int(16_000 * STRIDE)
     preds = []
-    # print("loaded audio file")
+
     # If audio file is less than or equal WINDOW_SIZE seconds
     if total_samples <= window_size_samples:
         start = 0
@@ -61,8 +61,14 @@ def copy_audio_to_lang_folder(path, lang, audio_file):
     langPath = os.path.join(path, lang.strip())
     os.makedirs(langPath, exist_ok=True)
     vtt_file = [file for file in os.listdir(path) if file.startswith(os.path.basename(audio_file[:-4])) and file.endswith(".vtt")]
-    shutil.move(f'{audio_file}',f'{os.path.join(langPath, os.path.basename(audio_file))}')
-    shutil.move(f'{os.path.join(path, vtt_file[0])}',f'{os.path.join(langPath, vtt_file[0])}')
+    if vtt_file:
+        shutil.move(f'{audio_file}', f'{os.path.join(langPath, os.path.basename(audio_file))}')
+        shutil.move(f'{os.path.join(path, vtt_file[0])}', f'{os.path.join(langPath, vtt_file[0])}')
+        return True
+    else:
+        # If no VTT file found, just move the audio file
+        shutil.move(f'{audio_file}', f'{os.path.join(langPath, os.path.basename(audio_file))}')
+        return False
 
 def preprocess(signal: torch.tensor, sr: int) -> torch.tensor:
     CHANNELS = 1
@@ -85,16 +91,23 @@ def preprocess(signal: torch.tensor, sr: int) -> torch.tensor:
 
     return monochannel_waveform
 
-def main():
-    language_id = EncoderClassifier.from_hparams(
-            source="speechbrain/lang-id-voxlingua107-ecapa",
-            savedir="lid-model",
-            run_opts={"device":"cuda"})
-    language_id.hparams.label_encoder.ignore_len()
+def process_audio_files(language_id=None):
+    """Process audio files and organize them by detected language"""
+    # If model wasn't passed, load it (fallback)
+    if language_id is None:
+        language_id = EncoderClassifier.from_hparams(
+                source="speechbrain/lang-id-voxlingua107-ecapa",
+                savedir="lid-model",
+                run_opts={"device":"cuda" if torch.cuda.is_available() else "cpu"})
+        language_id.hparams.label_encoder.ignore_len()
+    
     path = "audio-and-captions"
     audio_list = glob.glob(f'{path}/*.mp3')
+    
+    results = []
     if len(audio_list)==0:
         print("Folder doesn't contain audio files")
+        return {"status": "error", "message": "Folder doesn't contain audio files"}
     else:
         audio_list = natsorted(audio_list, alg=ns.IGNORECASE)
         for audio_file in tqdm(
@@ -102,10 +115,20 @@ def main():
                 total=len(audio_list),
                 desc=f"Processing",
                 ):
-            print(audio_file)
-            lang = detect_lang(audio_file, language_id)
-            # print(lang)
-            copy_audio_to_lang_folder(path, lang.split(":")[1], audio_file)
-
-if __name__ == "__main__":
-    main()
+            print(f"Processing {audio_file}")
+            try:
+                lang = detect_lang(audio_file, language_id)
+                print(f"  Detected language: {lang}")
+                language_code = lang.split(":")[1]
+                vtt_found = copy_audio_to_lang_folder(path, language_code, audio_file)
+                results.append({
+                    "file": audio_file, 
+                    "language": language_code, 
+                    "vtt_found": vtt_found,
+                    "status": "success"
+                })
+            except Exception as e:
+                print(f"  Error processing {audio_file}: {str(e)}")
+                results.append({"file": audio_file, "status": "error", "message": str(e)})
+    
+    return {"status": "completed", "results": results}

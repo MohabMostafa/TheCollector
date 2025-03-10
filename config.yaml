@@ -1,3 +1,6 @@
 max_results: 10
 lang: "ar"
 country: "egypt"
+dialect: "ECA"
+DIALECT_BASE_URL: "http://dialect_detector:3003"
+LID_BASE_URL: "http://lang_detector:3002"
