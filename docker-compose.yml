@@ -50,6 +50,17 @@ services:
     networks:
       - common_net
 
+  dpipe-mkdocs:
+    image: squidfunk/mkdocs-material
+    container_name: dpipe-mkdocs
+    restart: always
+    ports:
+      - "0.0.0.0:5001:8000"
+    volumes:
+      - ./:/docs
+    stdin_open: true
+    tty: true
+
 networks:
   common_net:
     external: true
