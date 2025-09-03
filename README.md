@@ -186,4 +186,5 @@ MIT License. See [LICENSE](LICENSE) for details.
 ## 🙌 Acknowledgments
 - [SpeechBrain](https://speechbrain.github.io/) for language ID models.  
 - [Hugging Face](https://huggingface.co/) for Transformer-based dialect ID.  
-- Open-source community for toolkits that made this project possible.  
+- Open-source community for toolkits that made this project possible.
+- Ibrahim Amin for his help and support.
