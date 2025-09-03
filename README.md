@@ -71,6 +71,7 @@ Before starting, make sure you have **keywords.txt** inside the `keywords/` fold
 python srcs/original_scripts/_get_urls_from_keywords.py
 ```
 - Creates `urls.txt` inside `url_list/` with collected YouTube URLs.
+- The maximum number of results per keyword can be adjusted by changing the `max_results` variable inside this script.
 
 ---
 
