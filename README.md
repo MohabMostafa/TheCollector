@@ -6,9 +6,11 @@
   |_| |_| |_|\___| \____\___/|_|_|\___|\___|\__\___/|_|
   Author: Mohab Mostafa
 ```
+[![DOI](https://zenodo.org/badge/940796455.svg)](https://doi.org/10.5281/zenodo.17949055)
+
 The **Collector** is a modular framework for collecting, filtering, and preparing Arabic speech datasets.  
 It provides tools for downloading audio, removing music, identifying language and dialect, and preparing segmented speech datasets for both **Arabic-only** and **code-switched** utterances.  
-[![DOI](https://zenodo.org/badge/940796455.svg)](https://doi.org/10.5281/zenodo.17949055)
+
 🔗 **Repository:** [TheCollector](https://github.com/MohabMostafa/TheCollector.git)
 
 ---
